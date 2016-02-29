@@ -4,17 +4,17 @@ The purpose of this challenge is to asses your familiarity with working with Rub
 
 ## Question 1
 
-In a file called `email_validator.rb`, please write a function, `validate_email(email)` which takes in a string and returns true if it matches a valid "@mopals.com" email address.
+In the file `email_validator.rb`, please complete the function `validate(email)` which takes a string and returns true if it matches a valid "@mopals.com" email address.
 
 ## Question 2
 
-In a file called `string_sort.rb`, please write a function `sort_string(str)` which takes a string, containing a sentence (_n_ number of whitespace-separated work tokens) and returns that string sorted in non-descending order of word length.
+In the file `arranger.rb`, please complete the function `arrange_string(str)`, which takes a string containing a sentence (_n_ number of whitespace-separated word token) and returns that setence rearranged in non-descending order of word length.
 
-For example, `sort_string("Where sharing is rewarding") -> "is Where sharing rewarding"`
+For example, `arrange_string("Where sharing is rewarding") -> "is Where sharing rewarding"`
 
 ## Question 3
 
-In a file called `report_cards.rb`, please write a function `best_students(report_cards)` which takes a hash containing the students report cards and returns an array of hashes, each one representing the best student in the subject.
+In a file called `report_cards.rb`, please write a function `best_students(report_cards)` which takes a has containing the students' report cards and returns an array of hashes, each one representing the best student for the subject.
 
 Example input:
 
