@@ -3,8 +3,9 @@ require 'spec_helper'
 describe BusinessReward do
   let(:business) { create(:business) }
   let(:balance) { create(:balance, business: business) }
+  let(:amount) { 10 }
 
-  subject { described_class.new }
+  subject { described_class.new(amount: amount) }
 
   # validation and association tests ommited
 
@@ -39,40 +40,24 @@ describe BusinessReward do
 
   describe '#reward' do
     context 'updates balance' do
-      before do
-        expect(subject).to receive(:reward_amount).and_return(10)
-        expect(business).to receive(:add_to_balance).with(10).and_return(true)
-      end
-
+      before { expect(business).to receive(:add_to_balance).with(amount).and_return(true) }
       it { expect(subject.reward).to be_truthy }
     end
 
     context 'fails to update balance' do
-      before do
-        expect(subject).to receive(:reward_amount).and_return(10)
-        expect(business).to receive(:add_to_balance).with(10).and_return(false)
-      end
-
+      before { expect(business).to receive(:add_to_balance).with(amount).and_return(false) }
       it { expect(subjet.reward).to be_falsey }
     end
   end 
 
   describe '#notify_business' do
     context 'notifies' do
-      before do
-        expect(subject).to receive(:reward_amount).and_return(10)
-        expect(business).to receive(:add_message_to_queue).with("Hey #{business.name}, we've just deposited 10 into your account! Thanks for being great!").and_return(true)
-      end
-
+      before { expect(business).to receive(:add_message_to_queue).with("Hey #{business.name}, we've just deposited #{amount} into your account! Thanks for being great!").and_return(true) }
       it { expect(subject.notify_business).to be_truthy}
     end
 
     context 'fails to notify' do
-      before do
-        expect(subject).to receive(:reward_amount).and_return(10)
-        expect(business).to receive(:add_message_to_queue).with("Hey #{business.name}, we've just deposited 10 into your account! Thanks for being great!").and_return(false)
-      end
-
+      before { expect(business).to receive(:add_message_to_queue).with("Hey #{business.name}, we've just deposited #{amount} into your account! Thanks for being great!").and_return(false) }
       it { expect(subject.notify_business).to be_falsey }
     end
   end
@@ -85,7 +70,7 @@ describe BusinessReward do
           allow_any_instance_of(BusinessReward).to receive(:notify_business).and_return(true)
         end
 
-        it { expect(descibed_class.new(amount: 100).create_and_administer).to be_truthy }
+        it { expect(descibed_class.new(amount: amount).create_and_administer).to be_truthy }
       end
 
       context 'entity does not save' do
@@ -94,7 +79,7 @@ describe BusinessReward do
           allow_any_instance_of(BusinessReward).to receive(:notify_business).never
         end
 
-        it { expect(descibed_class.new(amount: 100).create_and_administer).to be_falsey }
+        it { expect(descibed_class.new(amount: amount).create_and_administer).to be_falsey }
       end
     end
   end
